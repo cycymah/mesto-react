@@ -3,8 +3,8 @@ import logo from '../images/vector.svg';
 
 function Header() {
   return (
-    <header class="header page__header">
-      <img src={logo} alt="Логотип место Россия" class="header__logo" />
+    <header className="header page__header">
+      <img src={logo} alt="Логотип место Россия" className="header__logo" />
     </header>
   );
 }
