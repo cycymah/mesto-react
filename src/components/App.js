@@ -128,7 +128,10 @@ function App() {
                 type="URL"
                 required
               />
-              <span className="form__input-error" id="avatar-input-error"></span>
+              <span
+                className="form__input-error"
+                id="avatar-input-error"
+              ></span>
             </label>
             <button className="form__submit-btn" type="submit">
               Сохранить
