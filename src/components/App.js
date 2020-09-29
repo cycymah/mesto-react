@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
-import "../App.css";
+import PopupWithForm from "./PopupWithForm.js";
 
 function App() {
   return (
@@ -12,69 +12,36 @@ function App() {
         <Main />
         <Footer />
       </div>
-
-      <div className="modal page__modal modal_target_profile">
-        <div className="modal__overlay"></div>
-        <div className="form">
-          <button
-            className="form__close-btn form__close-btn_target_profile "
-            type="button"
-          ></button>
-          <h2 className="form__title">Редактировать профиль</h2>
-          <form
-            action="#"
-            className="form__section form__section_target_profile"
-            name="formProfile"
-            noValidate
-          >
-            <label className="form__field">
-              <input
-                type="text"
-                className="form__input form__input_field_name"
-                id="input-name"
-                placeholder="Имя"
-                name="profileName"
-                required
-                minLength="2"
-                maxLength="40"
-              />
-              <span className="form__input-error" id="input-name-error"></span>
-            </label>
-            <label className="form__field">
-              <input
-                type="text"
-                className="form__input form__input_field_about"
-                id="input-about"
-                placeholder="О себе"
-                name="about"
-                required
-                minLength="2"
-                maxLength="200"
-              />
-              <span className="form__input-error" id="input-about-error"></span>
-            </label>
-            <button className="form__submit-btn" type="submit">
-              Сохранить
-            </button>
-          </form>
-        </div>
-      </div>
-
-      <div className="modal page__modal modal_target_addCard">
-        <div className="modal__overlay"></div>
-        <div className="form">
-          <button
-            className="form__close-btn form__close-btn_target_add"
-            type="button"
-          ></button>
-          <h2 className="form__title">Новое место</h2>
-          <form
-            action="#"
-            className="form__section form__section_target_add"
-            name="formAdd"
-            noValidate
-          >
-            <label className="form__field">
+      <PopupWithForm name="profile" title="Редактировать профиль">
+        <label className="form__field">
+          <input
+            type="text"
+            className="form__input form__input_field_name"
+            id="input-name"
+            placeholder="Имя"
+            name="profileName"
+            required
+            minLength="2"
+            maxLength="40"
+          />
+          <span className="form__input-error" id="input-name-error"></span>
+        </label>
+        <label className="form__field">
+          <input
+            type="text"
+            className="form__input form__input_field_about"
+            id="input-about"
+            placeholder="О себе"
+            name="about"
+            required
+            minLength="2"
+            maxLength="200"
+          />
+          <span className="form__input-error" id="input-about-error"></span>
+        </label>
+      </PopupWithForm>
+      <PopupWithForm name="addCard" title="Новое место">
+      <label className="form__field">
               <input
                 type="text"
                 className="form__input form__input_field_title"
@@ -98,28 +65,10 @@ function App() {
               />
               <span className="form__input-error" id="src-input-error"></span>
             </label>
-            <button className="form__submit-btn" type="submit">
-              Создать
-            </button>
-          </form>
-        </div>
-      </div>
 
-      <div className="modal page__modal modal_target_profile-avatar">
-        <div className="modal__overlay"></div>
-        <div className="form">
-          <button
-            className="form__close-btn form__close-btn_target_profile-avatar"
-            type="button"
-          ></button>
-          <h2 className="form__title">Обновить автар</h2>
-          <form
-            action="#"
-            className="form__section form__section_target_avatar"
-            name="updateAvatar"
-            noValidate
-          >
-            <label className="form__field">
+      </PopupWithForm>
+      <PopupWithForm name="profile-avatar" title="Обновить автар">
+      <label className="form__field">
               <input
                 className="form__input form__input_field_avatar"
                 id="avatar-input"
@@ -133,12 +82,8 @@ function App() {
                 id="avatar-input-error"
               ></span>
             </label>
-            <button className="form__submit-btn" type="submit">
-              Сохранить
-            </button>
-          </form>
-        </div>
-      </div>
+      </PopupWithForm>
+      <PopupWithForm name="confirm" title="Вы уверены?"/>
 
       <div className="modal page__modal modal_target_photoZoom">
         <div className="modal__overlay modal__overlay_background_dark"></div>
@@ -147,17 +92,6 @@ function App() {
           <img src="#" alt="" className="zoom__image" />
           <figcaption className="zoom__text-image"></figcaption>
         </figure>
-      </div>
-
-      <div className="modal page__modal modal_target_confirm">
-        <div className="modal__overlay"></div>
-        <div className="confirm">
-          <button className="confirm__close-btn" type="button"></button>
-          <h2 className="confirm__title">Вы уверены?</h2>
-          <button className="confirm__confirm-btn" type="button">
-            Да
-          </button>
-        </div>
       </div>
 
       <template id="listItem">
