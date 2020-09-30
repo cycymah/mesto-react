@@ -6,15 +6,18 @@ import PopupWithForm from "./PopupWithForm.js";
 import ImagePopup from "./ImagePopup.js";
 
 function App() {
+  //Задаем состояния компонента
   const [isEditProfilePopupOpen, setProfileStatus] = React.useState(false);
   const [isAddPlacePopupOpen, setPlaceStatus] = React.useState(false);
   const [isEditAvatarPopupOpen, setAvatarStatus] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState("");
+  const [selectedCard, setSelectedCard] = React.useState({});
 
+  //Функция для открытия увеличенной карточки по клику
   const handleCardClick = (card) => {
     setSelectedCard({ status: true, src: card.link, name: card.name });
   };
 
+  //Функции изменения состояния для открытия попапов
   const handleEditAvatarClick = () => {
     setAvatarStatus(true);
   };
@@ -25,6 +28,7 @@ function App() {
     setPlaceStatus(true);
   };
 
+  //Изменения состояния для закрытия попапов
   const closeAllPopups = () => {
     setAvatarStatus(false);
     setPlaceStatus(false);
@@ -45,6 +49,7 @@ function App() {
         <Footer />
       </div>
 
+      {/* Попап профайла */}
       <PopupWithForm
         onClose={closeAllPopups}
         isOpen={isEditProfilePopupOpen}
@@ -79,6 +84,7 @@ function App() {
         </label>
       </PopupWithForm>
 
+      {/* Попап добавления новых карточек */}
       <PopupWithForm
         onClose={closeAllPopups}
         isOpen={isAddPlacePopupOpen}
@@ -111,6 +117,7 @@ function App() {
         </label>
       </PopupWithForm>
 
+      {/* Попап редактирования аватара */}
       <PopupWithForm
         onClose={closeAllPopups}
         isOpen={isEditAvatarPopupOpen}
@@ -129,7 +136,11 @@ function App() {
           <span className="form__input-error" id="avatar-input-error"></span>
         </label>
       </PopupWithForm>
+
+      {/* Попап подтверждения действий */}
       <PopupWithForm name="confirm" title="Вы уверены?" />
+
+      {/* Попап увеличенной картинки  */}
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
   );
