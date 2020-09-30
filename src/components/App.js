@@ -3,16 +3,52 @@ import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
 import PopupWithForm from "./PopupWithForm.js";
+import ImagePopup from "./ImagePopup.js";
 
 function App() {
+  const [isEditProfilePopupOpen, setProfileStatus] = React.useState(false);
+  const [isAddPlacePopupOpen, setPlaceStatus] = React.useState(false);
+  const [isEditAvatarPopupOpen, setAvatarStatus] = React.useState(false);
+
+  const handleEditAvatarClick = () => {
+    setAvatarStatus(true);
+  };
+  const handleEditProfileClick = () => {
+    setProfileStatus(true);
+  };
+  const handleAddPlaceClick = () => {
+    setPlaceStatus(true);
+  };
+
+  const handleProfileModalClose = () => {
+    setProfileStatus(false);
+  };
+
+  const handlePlaceModalClose = () => {
+    setPlaceStatus(false);
+  };
+
+  const handleAvatarModalClose = () => {
+    setAvatarStatus(false);
+  };
   return (
     <div className="page">
       <div className="page__container">
         <Header />
-        <Main />
+        <Main
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onEditAvatar={handleEditAvatarClick}
+        />
         <Footer />
       </div>
-      <PopupWithForm name="profile" title="Редактировать профиль">
+
+      <PopupWithForm
+        onClose={handleProfileModalClose}
+        isOpen={isEditProfilePopupOpen}
+        name="profile"
+        title="Редактировать профиль"
+      >
         <label className="form__field">
           <input
             type="text"
@@ -40,59 +76,59 @@ function App() {
           <span className="form__input-error" id="input-about-error"></span>
         </label>
       </PopupWithForm>
-      <PopupWithForm name="addCard" title="Новое место">
-      <label className="form__field">
-              <input
-                type="text"
-                className="form__input form__input_field_title"
-                id="title-input"
-                placeholder="Название"
-                name="name"
-                minLength="1"
-                maxLength="30"
-                required
-              />
-              <span className="form__input-error" id="title-input-error"></span>
-            </label>
-            <label className="form__field">
-              <input
-                className="form__input form__input_field_src"
-                id="src-input"
-                placeholder="Ссылка на картинку"
-                name="link"
-                type="URL"
-                required
-              />
-              <span className="form__input-error" id="src-input-error"></span>
-            </label>
 
+      <PopupWithForm
+        onClose={handlePlaceModalClose}
+        isOpen={isAddPlacePopupOpen}
+        name="addCard"
+        title="Новое место"
+      >
+        <label className="form__field">
+          <input
+            type="text"
+            className="form__input form__input_field_title"
+            id="title-input"
+            placeholder="Название"
+            name="name"
+            minLength="1"
+            maxLength="30"
+            required
+          />
+          <span className="form__input-error" id="title-input-error"></span>
+        </label>
+        <label className="form__field">
+          <input
+            className="form__input form__input_field_src"
+            id="src-input"
+            placeholder="Ссылка на картинку"
+            name="link"
+            type="URL"
+            required
+          />
+          <span className="form__input-error" id="src-input-error"></span>
+        </label>
       </PopupWithForm>
-      <PopupWithForm name="profile-avatar" title="Обновить автар">
-      <label className="form__field">
-              <input
-                className="form__input form__input_field_avatar"
-                id="avatar-input"
-                placeholder="Ссылка на картинку"
-                name="pictureSource"
-                type="URL"
-                required
-              />
-              <span
-                className="form__input-error"
-                id="avatar-input-error"
-              ></span>
-            </label>
-      </PopupWithForm>
-      <PopupWithForm name="confirm" title="Вы уверены?"/>
 
-      <div className="modal page__modal modal_target_photoZoom">
-        <div className="modal__overlay modal__overlay_background_dark"></div>
-        <figure className="zoom">
-          <button className="zoom__close-btn" type="button"></button>
-          <img src="#" alt="" className="zoom__image" />
-          <figcaption className="zoom__text-image"></figcaption>
-        </figure>
-      </div>
+      <PopupWithForm
+        onClose={handleAvatarModalClose}
+        isOpen={isEditAvatarPopupOpen}
+        name="profile-avatar"
+        title="Обновить автар"
+      >
+        <label className="form__field">
+          <input
+            className="form__input form__input_field_avatar"
+            id="avatar-input"
+            placeholder="Ссылка на картинку"
+            name="pictureSource"
+            type="URL"
+            required
+          />
+          <span className="form__input-error" id="avatar-input-error"></span>
+        </label>
+      </PopupWithForm>
+      <PopupWithForm name="confirm" title="Вы уверены?" />
+      <ImagePopup />
 
       <template id="listItem">
         <li className="elements__item">
