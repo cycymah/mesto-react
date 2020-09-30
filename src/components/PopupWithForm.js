@@ -2,7 +2,11 @@ import React from "react";
 
 function PopupWithForm(props) {
   return (
-    <div className={`modal page__modal modal_target_${props.name} ${props.isOpen ? 'modal_active' : ''}`}>
+    <div
+      className={`modal page__modal modal_target_${props.name} ${
+        props.isOpen ? "modal_active" : ""
+      }`}
+    >
       <div className="modal__overlay"></div>
       <div className="form">
         <button

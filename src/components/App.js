@@ -9,6 +9,10 @@ function App() {
   const [isEditProfilePopupOpen, setProfileStatus] = React.useState(false);
   const [isAddPlacePopupOpen, setPlaceStatus] = React.useState(false);
   const [isEditAvatarPopupOpen, setAvatarStatus] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState('');
+  
+  const handleCardClick = (card) => {
+  };
 
   const handleEditAvatarClick = () => {
     setAvatarStatus(true);
@@ -20,22 +24,19 @@ function App() {
     setPlaceStatus(true);
   };
 
-  const handleProfileModalClose = () => {
-    setProfileStatus(false);
-  };
-
-  const handlePlaceModalClose = () => {
-    setPlaceStatus(false);
-  };
-
-  const handleAvatarModalClose = () => {
+  const closeAllPopups = () => {
     setAvatarStatus(false);
+    setPlaceStatus(false);
+    setProfileStatus(false);
+    setSelectedCard(false);
   };
+
   return (
     <div className="page">
       <div className="page__container">
         <Header />
         <Main
+          onCardClick={handleCardClick}
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
@@ -44,7 +45,7 @@ function App() {
       </div>
 
       <PopupWithForm
-        onClose={handleProfileModalClose}
+        onClose={closeAllPopups}
         isOpen={isEditProfilePopupOpen}
         name="profile"
         title="Редактировать профиль"
@@ -78,7 +79,7 @@ function App() {
       </PopupWithForm>
 
       <PopupWithForm
-        onClose={handlePlaceModalClose}
+        onClose={closeAllPopups}
         isOpen={isAddPlacePopupOpen}
         name="addCard"
         title="Новое место"
@@ -110,7 +111,7 @@ function App() {
       </PopupWithForm>
 
       <PopupWithForm
-        onClose={handleAvatarModalClose}
+        onClose={closeAllPopups}
         isOpen={isEditAvatarPopupOpen}
         name="profile-avatar"
         title="Обновить автар"
@@ -128,7 +129,7 @@ function App() {
         </label>
       </PopupWithForm>
       <PopupWithForm name="confirm" title="Вы уверены?" />
-      <ImagePopup />
+      <ImagePopup card ={selectedCard} onClose={closeAllPopups} />
     </div>
   );
 }

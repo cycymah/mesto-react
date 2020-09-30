@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import api from "../utils/Api.js";
+import Card from "./Card.js";
 
 function Main(props) {
   const [userAvatar, setAvatar] = React.useState("");
@@ -9,25 +10,22 @@ function Main(props) {
 
   useEffect(() => {
     const profileInfo = api.getProfileInformation("users/me");
-    console.log(profileInfo);
-      profileInfo
-        .then((data) => {
-          setAvatar(data.avatar);
-          setDescription(data.about);
-          setUserName(data.name);
-        })
-        .catch((err) => console.log(err));
-    
+    profileInfo
+      .then((data) => {
+        setAvatar(data.avatar);
+        setDescription(data.about);
+        setUserName(data.name);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
     const getCards = api.getInitialCards("cards");
-      getCards
-        .then((dataCard) => {
-          setCards(dataCard);
-        })
-        .catch((err) => console.log(err));
-    
+    getCards
+      .then((dataCard) => {
+        setCards(dataCard);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -62,28 +60,16 @@ function Main(props) {
       </section>
       <section className="elements">
         <ul className="elements__list">
-          {cards.map((dataCard) => {
-            console.log(dataCard);
+          {cards.map((dataCard, i) => {
             return (
-              <li className="elements__item">
-                <button className="elements__trash" type="button"></button>
-                <figure className="elements__item-card">
-                  <img
-                    src={dataCard.link}
-                    alt={dataCard.name}
-                    className="elements__image"
-                  />
-                  <figcaption className="elements__image-content-box">
-                    <p className="elements__image-description">
-                      {dataCard.name}
-                    </p>
-                    <div className="elements__like-button-box">
-                      <button className="elements__like"></button>
-            <span className="elements__like-counter">{dataCard.likes.length}</span>
-                    </div>
-                  </figcaption>
-                </figure>
-              </li>
+              <Card
+                card={dataCard}
+                onCardClick={props.onCardClick}
+                key={i}
+                name={dataCard.name}
+                link={dataCard.link}
+                likes={dataCard.likes.length}
+              />
             );
           })}
         </ul>
