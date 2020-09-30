@@ -9,9 +9,10 @@ function App() {
   const [isEditProfilePopupOpen, setProfileStatus] = React.useState(false);
   const [isAddPlacePopupOpen, setPlaceStatus] = React.useState(false);
   const [isEditAvatarPopupOpen, setAvatarStatus] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState('');
-  
+  const [selectedCard, setSelectedCard] = React.useState("");
+
   const handleCardClick = (card) => {
+    setSelectedCard({ status: true, src: card.link, name: card.name });
   };
 
   const handleEditAvatarClick = () => {
@@ -129,7 +130,7 @@ function App() {
         </label>
       </PopupWithForm>
       <PopupWithForm name="confirm" title="Вы уверены?" />
-      <ImagePopup card ={selectedCard} onClose={closeAllPopups} />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
   );
 }
