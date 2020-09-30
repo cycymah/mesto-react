@@ -129,22 +129,6 @@ function App() {
       </PopupWithForm>
       <PopupWithForm name="confirm" title="Вы уверены?" />
       <ImagePopup />
-
-      <template id="listItem">
-        <li className="elements__item">
-          <button className="elements__trash" type="button"></button>
-          <figure className="elements__item-card">
-            <img src="#" alt="" className="elements__image" />
-            <figcaption className="elements__image-content-box">
-              <p className="elements__image-description"></p>
-              <div className="elements__like-button-box">
-                <button className="elements__like"></button>
-                <span className="elements__like-counter">1</span>
-              </div>
-            </figcaption>
-          </figure>
-        </li>
-      </template>
     </div>
   );
 }

@@ -9,21 +9,26 @@ function Main(props) {
 
   useEffect(() => {
     const profileInfo = api.getProfileInformation("users/me");
-    const getCards = api.getInitialCards('cards');
+    console.log(profileInfo);
+      profileInfo
+        .then((data) => {
+          setAvatar(data.avatar);
+          setDescription(data.about);
+          setUserName(data.name);
+        })
+        .catch((err) => console.log(err));
     
+  }, []);
 
-    profileInfo
-      .then((data) => {
-        setAvatar(data.avatar);
-        setDescription(data.about);
-        setUserName(data.name);
-      })
-      .catch((err) => console.log(err));
+  useEffect(() => {
+    const getCards = api.getInitialCards("cards");
+      getCards
+        .then((dataCard) => {
+          setCards(dataCard);
+        })
+        .catch((err) => console.log(err));
     
-      getCards.then(dataCard => {
-        setCards(dataCard);
-      }).catch(err => console.log(err));
-  });
+  }, []);
 
   return (
     <main className="content page__content">
@@ -57,8 +62,30 @@ function Main(props) {
       </section>
       <section className="elements">
         <ul className="elements__list">
-
-
+          {cards.map((dataCard) => {
+            console.log(dataCard);
+            return (
+              <li className="elements__item">
+                <button className="elements__trash" type="button"></button>
+                <figure className="elements__item-card">
+                  <img
+                    src={dataCard.link}
+                    alt={dataCard.name}
+                    className="elements__image"
+                  />
+                  <figcaption className="elements__image-content-box">
+                    <p className="elements__image-description">
+                      {dataCard.name}
+                    </p>
+                    <div className="elements__like-button-box">
+                      <button className="elements__like"></button>
+            <span className="elements__like-counter">{dataCard.likes.length}</span>
+                    </div>
+                  </figcaption>
+                </figure>
+              </li>
+            );
+          })}
         </ul>
       </section>
     </main>
