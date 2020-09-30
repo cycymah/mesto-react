@@ -7,7 +7,7 @@ function ImagePopup(props) {
         props.card.status ? "modal_active" : ""
       }`}
     >
-      <div className="modal__overlay modal__overlay_background_dark"></div>
+      <div onClick={props.onClose} className="modal__overlay modal__overlay_background_dark"></div>
       <figure className="zoom">
         <button
           onClick={props.onClose}

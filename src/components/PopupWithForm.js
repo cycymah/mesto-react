@@ -7,7 +7,7 @@ function PopupWithForm(props) {
         props.isOpen ? "modal_active" : ""
       }`}
     >
-      <div className="modal__overlay"></div>
+      <div onClick={props.onClose} className="modal__overlay"></div>
       <div className="form">
         <button
           className={`form__close-btn form__close-btn_target_${props.name}`}
