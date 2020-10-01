@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import api from "../utils/Api.js";
 import Card from "./Card.js";
 
-function Main(props) {
+function Main({ onEditAvatar, onAddPlace, onEditProfile, onCardClick }) {
   //Задаем состояния компонента
   const [userAvatar, setAvatar] = React.useState("");
   const [userDescription, setDescription] = React.useState("");
@@ -13,10 +13,10 @@ function Main(props) {
   useEffect(() => {
     const profileInfo = api.getProfileInformation("users/me");
     profileInfo
-      .then((data) => {
-        setAvatar(data.avatar);
-        setDescription(data.about);
-        setUserName(data.name);
+      .then(({ avatar, about, name }) => {
+        setAvatar(avatar);
+        setDescription(about);
+        setUserName(name);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -41,7 +41,7 @@ function Main(props) {
             className="profile__avatar"
           />
           <button
-            onClick={props.onEditAvatar}
+            onClick={onEditAvatar}
             className="profile__edit-avatar-btn"
             type="button"
           >
@@ -50,10 +50,10 @@ function Main(props) {
         </div>
         <div className="profile__profile-info">
           <h1 className="profile__title-name">{userName}</h1>
-          <button onClick={props.onEditProfile} className="profile__edit-btn" />
+          <button onClick={onEditProfile} className="profile__edit-btn" />
           <p className="profile__subtitle-name">{userDescription}</p>
         </div>
-        <button onClick={props.onAddPlace} className="profile__add-button" />
+        <button onClick={onAddPlace} className="profile__add-button" />
       </section>
       <section className="elements">
         <ul className="elements__list">
@@ -63,7 +63,7 @@ function Main(props) {
               return (
                 <Card
                   card={dataCard}
-                  onCardClick={props.onCardClick}
+                  onCardClick={onCardClick}
                   key={i}
                   name={dataCard.name}
                   link={dataCard.link}

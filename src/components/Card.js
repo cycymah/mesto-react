@@ -1,9 +1,9 @@
 import React from "react";
 
-function Card(props) {
+function Card({card, link, likes, name, onCardClick}) {
   //Функция открытия картинки по клику
   const handleCardClick = () => {
-    props.onCardClick(props.card);
+    onCardClick(card);
   };
 
   return (
@@ -13,15 +13,15 @@ function Card(props) {
         <figure className="elements__item-card">
           <img
             onClick={handleCardClick}
-            src={props.link}
-            alt={props.name}
+            src={link}
+            alt={name}
             className="elements__image"
           />
           <figcaption className="elements__image-content-box">
-            <p className="elements__image-description">{props.name}</p>
+            <p className="elements__image-description">{name}</p>
             <div className="elements__like-button-box">
               <button className="elements__like" />
-              <span className="elements__like-counter">{props.likes}</span>
+              <span className="elements__like-counter">{likes}</span>
             </div>
           </figcaption>
         </figure>

@@ -13,8 +13,8 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({});
 
   //Функция для открытия увеличенной карточки по клику
-  const handleCardClick = (card) => {
-    setSelectedCard({ status: true, src: card.link, name: card.name });
+  const handleCardClick = ({ link, name }) => {
+    setSelectedCard({ status: true, src: link, name: name });
   };
 
   //Функции изменения состояния для открытия попапов
@@ -141,7 +141,7 @@ function App() {
       </PopupWithForm>
 
       {/* Попап подтверждения действий */}
-      <PopupWithForm name="confirm" title="Вы уверены?" textButton="Да"/>
+      <PopupWithForm name="confirm" title="Вы уверены?" textButton="Да" />
 
       {/* Попап увеличенной картинки  */}
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
