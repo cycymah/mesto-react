@@ -19,7 +19,7 @@
 
 #### Ссылка
 
-  https://github.com/cycymah/mesto-react.git
+  https://cycymah.github.io/mesto-react/
 
 ##### Установка
 
