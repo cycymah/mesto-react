@@ -55,6 +55,7 @@ function App() {
         isOpen={isEditProfilePopupOpen}
         name="profile"
         title="Редактировать профиль"
+        textButton="Сохранить"
       >
         <label className="form__field">
           <input
@@ -90,6 +91,7 @@ function App() {
         isOpen={isAddPlacePopupOpen}
         name="addCard"
         title="Новое место"
+        textButton="Создать"
       >
         <label className="form__field">
           <input
@@ -123,6 +125,7 @@ function App() {
         isOpen={isEditAvatarPopupOpen}
         name="profile-avatar"
         title="Обновить автар"
+        textButton="Сохранить"
       >
         <label className="form__field">
           <input
@@ -138,7 +141,7 @@ function App() {
       </PopupWithForm>
 
       {/* Попап подтверждения действий */}
-      <PopupWithForm name="confirm" title="Вы уверены?" />
+      <PopupWithForm name="confirm" title="Вы уверены?" textButton="Да"/>
 
       {/* Попап увеличенной картинки  */}
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
