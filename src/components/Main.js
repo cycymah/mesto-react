@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../utils/Api.js";
 import Card from "./Card.js";
 
 function Main({ onEditAvatar, onAddPlace, onEditProfile, onCardClick }) {
   //Задаем состояния компонента
-  const [userAvatar, setAvatar] = React.useState("");
-  const [userDescription, setDescription] = React.useState("");
-  const [userName, setUserName] = React.useState("");
-  const [cards, setCards] = React.useState([]);
+  const [userAvatar, setAvatar] = useState("");
+  const [userDescription, setDescription] = useState("");
+  const [userName, setUserName] = useState("");
+  const [cards, setCards] = useState([]);
 
   //Делаем запрос к API для получениия данных пользователя
   useEffect(() => {
@@ -59,15 +59,15 @@ function Main({ onEditAvatar, onAddPlace, onEditProfile, onCardClick }) {
         <ul className="elements__list">
           {
             //Перебираем список полученных карточек и возвращаем их в разметку
-            cards.map((dataCard, i) => {
+            cards.map(({link, name, likes, _id}) => {
               return (
                 <Card
-                  card={dataCard}
+                  card={{link, name}}
                   onCardClick={onCardClick}
-                  key={i}
-                  name={dataCard.name}
-                  link={dataCard.link}
-                  likes={dataCard.likes.length}
+                  key={_id}
+                  name={name}
+                  link={link}
+                  likes={likes.length}
                 />
               );
             })

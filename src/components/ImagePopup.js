@@ -1,7 +1,7 @@
 import React from "react";
 
 //Попап с увеличенной картинкой
-function ImagePopup({card, onClose}) {
+function ImagePopup({ card, onClose }) {
   return (
     <div
       className={`modal page__modal modal_target_photoZoom ${
@@ -13,11 +13,7 @@ function ImagePopup({card, onClose}) {
         className="modal__overlay modal__overlay_background_dark"
       />
       <figure className="zoom">
-        <button
-          onClick={onClose}
-          className="zoom__close-btn"
-          type="button"
-        />
+        <button onClick={onClose} className="zoom__close-btn" type="button" />
         <img src={card.src} alt="" className="zoom__image" />
         <figcaption className="zoom__text-image">{card.name}</figcaption>
       </figure>

@@ -1,16 +1,16 @@
-import React from "react";
-import Header from "./Header.js";
-import Main from "./Main.js";
-import Footer from "./Footer.js";
-import PopupWithForm from "./PopupWithForm.js";
-import ImagePopup from "./ImagePopup.js";
+import React, { useState } from 'react';
+import Header from './Header.js';
+import Main from './Main.js';
+import Footer from './Footer.js';
+import PopupWithForm from './PopupWithForm.js';
+import ImagePopup from './ImagePopup.js';
 
 function App() {
   //Задаем состояния компонента
-  const [isEditProfilePopupOpen, setProfileStatus] = React.useState(false);
-  const [isAddPlacePopupOpen, setPlaceStatus] = React.useState(false);
-  const [isEditAvatarPopupOpen, setAvatarStatus] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
+  const [isEditProfilePopupOpen, setProfileStatus] = useState(false);
+  const [isAddPlacePopupOpen, setPlaceStatus] = useState(false);
+  const [isEditAvatarPopupOpen, setAvatarStatus] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
 
   //Функция для открытия увеличенной карточки по клику
   const handleCardClick = ({ link, name }) => {

@@ -1,29 +1,29 @@
 import React from "react";
 
-function PopupWithForm(props) {
+function PopupWithForm({ name, title, children, textButton, onClose, isOpen }) {
   return (
     <div
-      className={`modal page__modal modal_target_${props.name} ${
-        props.isOpen ? "modal_active" : "" //Показываем/убираем попап в зависимости от состояния
+      className={`modal page__modal modal_target_${name} ${
+        isOpen ? "modal_active" : "" //Показываем/убираем попап в зависимости от состояния
       }`}
     >
-      <div onClick={props.onClose} className="modal__overlay" />
+      <div onClick={onClose} className="modal__overlay" />
       <div className="form">
         <button
-          className={`form__close-btn form__close-btn_target_${props.name}`}
+          className={`form__close-btn form__close-btn_target_${name}`}
           type="button"
-          onClick={props.onClose}
+          onClick={onClose}
         />
-        <h2 className="form__title">{props.title}</h2>
+        <h2 className="form__title">{title}</h2>
         <form
           action="#"
-          className={`form__section form__section_target_${props.name}`}
-          name={props.name}
+          className={`form__section form__section_target_${name}`}
+          name={name}
           noValidate
         >
-          {props.children}
+          {children}
           <button className="form__submit-btn" type="submit">
-            {props.textButton}
+            {textButton}
           </button>
         </form>
       </div>
