@@ -1,34 +1,34 @@
-import React, { useEffect, useState } from "react";
-import api from "../utils/Api.js";
-import Card from "./Card.js";
+import React, { useEffect, useState } from 'react';
+import api from '../utils/Api.js';
+import Card from './Card.js';
 
 function Main({ onEditAvatar, onAddPlace, onEditProfile, onCardClick }) {
   //Задаем состояния компонента
-  const [userAvatar, setAvatar] = useState("");
-  const [userDescription, setDescription] = useState("");
-  const [userName, setUserName] = useState("");
+  const [userAvatar, setAvatar] = useState('');
+  const [userDescription, setDescription] = useState('');
+  const [userName, setUserName] = useState('');
   const [cards, setCards] = useState([]);
 
   //Делаем запрос к API для получениия данных пользователя
-  useEffect(() => {
-    const profileInfo = api.getProfileInformation("users/me");
+  useEffect(_ => {
+    const profileInfo = api.getProfileInformation('users/me');
     profileInfo
       .then(({ avatar, about, name }) => {
         setAvatar(avatar);
         setDescription(about);
         setUserName(name);
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   }, []);
 
   //Запрос к API для получения карточек
-  useEffect(() => {
-    const getCards = api.getInitialCards("cards");
+  useEffect(_ => {
+    const getCards = api.getInitialCards('cards');
     getCards
-      .then((dataCard) => {
+      .then(dataCard => {
         setCards(dataCard);
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   }, []);
 
   return (
@@ -59,10 +59,10 @@ function Main({ onEditAvatar, onAddPlace, onEditProfile, onCardClick }) {
         <ul className="elements__list">
           {
             //Перебираем список полученных карточек и возвращаем их в разметку
-            cards.map(({link, name, likes, _id}) => {
+            cards.map(({ link, name, likes, _id }) => {
               return (
                 <Card
-                  card={{link, name}}
+                  card={{ link, name }}
                   onCardClick={onCardClick}
                   key={_id}
                   name={name}

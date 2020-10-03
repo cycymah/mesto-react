@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 function Card({ link, likes, name, onCardClick }) {
   //Функция открытия картинки по клику
-  const handleCardClick = () => {
-    onCardClick({link, name});
+  const handleCardClick = _ => {
+    onCardClick({ link, name });
   };
 
   return (

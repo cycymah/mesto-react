@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
 function PopupWithForm({ name, title, children, textButton, onClose, isOpen }) {
   return (
     <div
       className={`modal page__modal modal_target_${name} ${
-        isOpen ? "modal_active" : "" //Показываем/убираем попап в зависимости от состояния
+        isOpen ? 'modal_active' : '' //Показываем/убираем попап в зависимости от состояния
       }`}
     >
       <div onClick={onClose} className="modal__overlay" />

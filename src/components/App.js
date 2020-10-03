@@ -18,18 +18,18 @@ function App() {
   };
 
   //Функции изменения состояния для открытия попапов
-  const handleEditAvatarClick = () => {
+  const handleEditAvatarClick = _ => {
     setAvatarStatus(true);
   };
-  const handleEditProfileClick = () => {
+  const handleEditProfileClick = _ => {
     setProfileStatus(true);
   };
-  const handleAddPlaceClick = () => {
+  const handleAddPlaceClick = _ => {
     setPlaceStatus(true);
   };
 
   //Изменения состояния для закрытия попапов
-  const closeAllPopups = () => {
+  const closeAllPopups = _ => {
     setAvatarStatus(false);
     setPlaceStatus(false);
     setProfileStatus(false);
