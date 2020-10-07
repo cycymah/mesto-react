@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../utils/Api.js';
 import Card from './Card.js';
 
-function Main({ onEditAvatar, onAddPlace, onEditProfile, onCardClick }) {
+const Main = ({ onEditAvatar, onAddPlace, onEditProfile, onCardClick }) => {
   //Задаем состояния компонента
   const [userAvatar, setAvatar] = useState('');
   const [userDescription, setDescription] = useState('');
@@ -76,6 +76,6 @@ function Main({ onEditAvatar, onAddPlace, onEditProfile, onCardClick }) {
       </section>
     </main>
   );
-}
+};
 
 export default Main;

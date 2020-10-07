@@ -1,6 +1,13 @@
 import React from 'react';
 
-function PopupWithForm({ name, title, children, textButton, onClose, isOpen }) {
+const PopupWithForm = ({
+  name,
+  title,
+  children,
+  textButton,
+  onClose,
+  isOpen,
+}) => {
   return (
     <div
       className={`modal page__modal modal_target_${name} ${
@@ -29,6 +36,6 @@ function PopupWithForm({ name, title, children, textButton, onClose, isOpen }) {
       </div>
     </div>
   );
-}
+};
 
 export default PopupWithForm;

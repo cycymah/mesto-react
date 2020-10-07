@@ -5,7 +5,7 @@ import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 
-function App() {
+const App = _ => {
   //Задаем состояния компонента
   const [isEditProfilePopupOpen, setProfileStatus] = useState(false);
   const [isAddPlacePopupOpen, setPlaceStatus] = useState(false);
@@ -147,6 +147,6 @@ function App() {
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
   );
-}
+};
 
 export default App;

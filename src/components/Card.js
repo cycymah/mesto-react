@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Card({ link, likes, name, onCardClick }) {
+const Card = ({ link, likes, name, onCardClick }) => {
   //Функция открытия картинки по клику
   const handleCardClick = _ => {
     onCardClick({ link, name });
@@ -28,6 +28,6 @@ function Card({ link, likes, name, onCardClick }) {
       </li>
     </>
   );
-}
+};
 
 export default Card;
