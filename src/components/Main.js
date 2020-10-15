@@ -1,25 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import api from '../utils/Api.js';
 import Card from './Card.js';
 
 const Main = ({ onEditAvatar, onAddPlace, onEditProfile, onCardClick }) => {
+  const { name, about, avatar } = useContext(CurrentUserContext);
+
   //Задаем состояния компонента
-  const [userAvatar, setAvatar] = useState('');
-  const [userDescription, setDescription] = useState('');
-  const [userName, setUserName] = useState('');
+  // const [userAvatar, setAvatar] = useState('');
+  // const [userDescription, setDescription] = useState('');
+  // const [userName, setUserName] = useState('');
   const [cards, setCards] = useState([]);
 
   //Делаем запрос к API для получениия данных пользователя
-  useEffect(_ => {
-    const profileInfo = api.getProfileInformation('users/me');
-    profileInfo
-      .then(({ avatar, about, name }) => {
-        setAvatar(avatar);
-        setDescription(about);
-        setUserName(name);
-      })
-      .catch(err => console.log(err));
-  }, []);
+  // useEffect(_ => {
+  //   const profileInfo = api.getProfileInformation('users/me');
+  //   profileInfo
+  //     .then(({ avatar, about, name }) => {
+  //       setAvatar(avatar);
+  //       setDescription(about);
+  //       setUserName(name);
+  //     })
+  //     .catch(err => console.log(err));
+  // }, []);
 
   //Запрос к API для получения карточек
   useEffect(_ => {
@@ -36,7 +39,7 @@ const Main = ({ onEditAvatar, onAddPlace, onEditProfile, onCardClick }) => {
       <section className="profile">
         <div className="profile__avatar-box">
           <img
-            src={userAvatar}
+            src={avatar}
             alt="Фотография аватара"
             className="profile__avatar"
           />
@@ -49,9 +52,9 @@ const Main = ({ onEditAvatar, onAddPlace, onEditProfile, onCardClick }) => {
           </button>
         </div>
         <div className="profile__profile-info">
-          <h1 className="profile__title-name">{userName}</h1>
+          <h1 className="profile__title-name">{name}</h1>
           <button onClick={onEditProfile} className="profile__edit-btn" />
-          <p className="profile__subtitle-name">{userDescription}</p>
+          <p className="profile__subtitle-name">{about}</p>
         </div>
         <button onClick={onAddPlace} className="profile__add-button" />
       </section>
@@ -59,15 +62,16 @@ const Main = ({ onEditAvatar, onAddPlace, onEditProfile, onCardClick }) => {
         <ul className="elements__list">
           {
             //Перебираем список полученных карточек и возвращаем их в разметку
-            cards.map(({ link, name, likes, _id }) => {
+            cards.map(({ link, name, likes, _id, owner }) => {
               return (
                 <Card
-                  card={{ link, name }}
+                  // card={{ link, name }}
                   onCardClick={onCardClick}
                   key={_id}
                   name={name}
                   link={link}
-                  likes={likes.length}
+                  likes={likes}
+                  cardOwner={owner._id}
                 />
               );
             })
