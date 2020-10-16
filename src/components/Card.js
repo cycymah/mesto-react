@@ -1,36 +1,54 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-const Card = ({ link, likes, name, onCardClick, cardOwner }) => {
+const Card = ({
+  link,
+  likes,
+  name,
+  idCard,
+  onCardClick,
+  onCardLike,
+  onCardDelete,
+  cardOwner,
+}) => {
+  //Подписываемся на контекст
   const currentUser = useContext(CurrentUserContext);
 
-  // Определяем, являемся ли мы владельцем текущей карточки
+  // Определяем, являемся ли мы владельцем текущей карточки и есть ли лайки владельца у карточек
   const isOwn = cardOwner === currentUser._id;
   const isLiked = likes.some(like => like._id === currentUser._id);
 
+  // Создаём переменную для класса карзины и лайка
   const cardLikeButtonClassName = `elements__like ${
     isLiked ? 'elements__like_active' : ''
   }`;
-
-  // Создаём переменную, которую после зададим в `className` для кнопки удаления
   const cardDeleteButtonClassName = `elements__trash ${
     isOwn ? '' : 'elements__trash_display_none'
   }`;
-
-  useEffect(_ => {
-    console.log(likes);
-    console.log(cardOwner);
-  }, []);
 
   //Функция открытия картинки по клику
   const handleCardClick = _ => {
     onCardClick({ link, name });
   };
 
+  //Лайк по клику
+  const handleLikeClick = _ => {
+    onCardLike({ likes, idCard });
+  };
+
+  //Удаление карточки по клику
+  const handleCardDelete = _ => {
+    onCardDelete(idCard);
+  };
+
   return (
     <>
       <li className="elements__item">
-        <button className={cardDeleteButtonClassName} type="button" />
+        <button
+          className={cardDeleteButtonClassName}
+          onClick={handleCardDelete}
+          type="button"
+        />
         <figure className="elements__item-card">
           <img
             onClick={handleCardClick}
@@ -41,8 +59,13 @@ const Card = ({ link, likes, name, onCardClick, cardOwner }) => {
           <figcaption className="elements__image-content-box">
             <p className="elements__image-description">{name}</p>
             <div className="elements__like-button-box">
-              <button className={cardLikeButtonClassName} />
-              <span className="elements__like-counter">{likes.length}</span>
+              <button
+                className={cardLikeButtonClassName}
+                onClick={handleLikeClick}
+              />
+              <span className="elements__like-counter">
+                {likes.length >= 1 ? likes.length : ''}
+              </span>
             </div>
           </figcaption>
         </figure>

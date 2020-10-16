@@ -7,6 +7,7 @@ const PopupWithForm = ({
   textButton,
   onClose,
   isOpen,
+  onSubmit,
 }) => {
   return (
     <div
@@ -26,6 +27,7 @@ const PopupWithForm = ({
           action="#"
           className={`form__section form__section_target_${name}`}
           name={name}
+          onSubmit={onSubmit}
           noValidate
         >
           {children}

@@ -3,36 +3,17 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import api from '../utils/Api.js';
 import Card from './Card.js';
 
-const Main = ({ onEditAvatar, onAddPlace, onEditProfile, onCardClick }) => {
+const Main = ({
+  onEditAvatar,
+  onAddPlace,
+  onEditProfile,
+  onCardClick,
+  cards,
+  onCardsLike,
+  onCardsDelete,
+}) => {
+  //Подписываемся на контекст
   const { name, about, avatar } = useContext(CurrentUserContext);
-
-  //Задаем состояния компонента
-  // const [userAvatar, setAvatar] = useState('');
-  // const [userDescription, setDescription] = useState('');
-  // const [userName, setUserName] = useState('');
-  const [cards, setCards] = useState([]);
-
-  //Делаем запрос к API для получениия данных пользователя
-  // useEffect(_ => {
-  //   const profileInfo = api.getProfileInformation('users/me');
-  //   profileInfo
-  //     .then(({ avatar, about, name }) => {
-  //       setAvatar(avatar);
-  //       setDescription(about);
-  //       setUserName(name);
-  //     })
-  //     .catch(err => console.log(err));
-  // }, []);
-
-  //Запрос к API для получения карточек
-  useEffect(_ => {
-    const getCards = api.getInitialCards('cards');
-    getCards
-      .then(dataCard => {
-        setCards(dataCard);
-      })
-      .catch(err => console.log(err));
-  }, []);
 
   return (
     <main className="content page__content">
@@ -62,16 +43,19 @@ const Main = ({ onEditAvatar, onAddPlace, onEditProfile, onCardClick }) => {
         <ul className="elements__list">
           {
             //Перебираем список полученных карточек и возвращаем их в разметку
-            cards.map(({ link, name, likes, _id, owner }) => {
+            cards.map(card => {
               return (
                 <Card
                   // card={{ link, name }}
                   onCardClick={onCardClick}
-                  key={_id}
-                  name={name}
-                  link={link}
-                  likes={likes}
-                  cardOwner={owner._id}
+                  onCardLike={onCardsLike}
+                  onCardDelete={onCardsDelete}
+                  key={card._id}
+                  name={card.name}
+                  link={card.link}
+                  likes={card.likes}
+                  idCard={card._id}
+                  cardOwner={card.owner._id}
                 />
               );
             })
