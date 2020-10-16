@@ -11,15 +11,15 @@ class Api {
     }).then(this._errorCheck);
   }
 
-  getProfileInformation(profileUrl) {
-    return fetch(`${this._serverUrl}/${profileUrl}`, {
+  getProfileInformation() {
+    return fetch(`${this._serverUrl}/users/me`, {
       method: 'GET',
       headers: this._headers,
     }).then(this._errorCheck);
   }
 
-  addNewInformation(data, urlCard) {
-    return fetch(`${this._serverUrl}/${urlCard}`, {
+  addNewCard(data) {
+    return fetch(`${this._serverUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify(data),

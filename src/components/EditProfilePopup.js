@@ -7,15 +7,16 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
   const [userName, setName] = useState({ name: '' });
   const [description, setDescription] = useState({ about: '' });
 
-  // console.log(userName, description);
+  //Заполняем данными из контекста
+  useEffect(
+    _ => {
+      setName(currentUser.name);
+      setDescription(currentUser.about);
+    },
+    [currentUser]
+  );
 
-  // const handleChange = evt => {
-  //   // const targetProfile = evt.target.profileName.value;
-  //   // const targetAbout = evt.target.about.value;
-  //   // console.log(targetProfile, targetAbout);
-  //   // setName({ name: targetProfile });
-  //   // setDescription({ about: targetAbout });
-  // };
+  //Получаем данные с инпутов и записываем в стейт
   const handleChangeName = evt => {
     const targetName = evt.target.value;
     setName(targetName);
@@ -26,23 +27,11 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
     setDescription(targetAbout);
   };
 
+  //По субмиту передаем данные инпутов в api
   const handleSubmit = evt => {
     evt.preventDefault();
-    // const targetProfile = evt.target.profileName.value;
-    // const targetAbout = evt.target.about.value;
-    // console.log(name, description);
-    // console.log(name, description);
-
     onUpdateUser({ name: userName, about: description });
   };
-
-  useEffect(
-    _ => {
-      setName(currentUser.name);
-      setDescription(currentUser.about);
-    },
-    [currentUser]
-  );
 
   return (
     <PopupWithForm

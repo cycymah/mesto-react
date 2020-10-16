@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
-import api from '../utils/Api.js';
 import Card from './Card.js';
 
 const Main = ({
@@ -46,7 +45,6 @@ const Main = ({
             cards.map(card => {
               return (
                 <Card
-                  // card={{ link, name }}
                   onCardClick={onCardClick}
                   onCardLike={onCardsLike}
                   onCardDelete={onCardsDelete}

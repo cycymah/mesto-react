@@ -8,19 +8,23 @@ import api from '../utils/Api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
+import AddPlacePopup from './AddPlacePopup';
 
 const App = _ => {
   //Задаем состояния компонента
   const [isEditProfilePopupOpen, setProfileStatus] = useState(false);
   const [isAddPlacePopupOpen, setPlaceStatus] = useState(false);
   const [isEditAvatarPopupOpen, setAvatarStatus] = useState(false);
+  const [isConfirmPopupOpen, setConfirmStatus] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
+  const [currentCardId, setCurrentCardId] = useState('');
   const [cards, setCards] = useState([]);
 
+  //Берем данные профайла для контекста
   useEffect(_ => {
-    const userInformation = api.getProfileInformation('users/me');
-    userInformation
+    api
+      .getProfileInformation()
       .then(userData => {
         setCurrentUser(userData);
       })
@@ -37,13 +41,28 @@ const App = _ => {
       .catch(err => console.log(err));
   }, []);
 
+  // const renderLoading = (loading, message) => {
+  //   if (loading) {
+  //     textButton = message;
+  //   } else {
+  //     textButton = message;
+  //   }
+  // };
+
   //Изменения состояния для закрытия попапов
   const closeAllPopups = _ => {
     setAvatarStatus(false);
     setPlaceStatus(false);
     setProfileStatus(false);
     setSelectedCard(false);
+    setConfirmStatus(false);
   };
+
+  //Функция для открытия увеличенной карточки по клику
+  const handleCardClick = ({ link, name }) => {
+    setSelectedCard({ status: true, src: link, name: name });
+  };
+
   //Проверяем лайки, меняем статус запросом к api и создаем новый массив карточек в стейт
   const handleCardLike = ({ likes, idCard }) => {
     const isLiked = likes.some(like => like._id === currentUser._id);
@@ -59,40 +78,51 @@ const App = _ => {
   };
 
   //Удаление карточки запрос к api и обновление стейта
-  const handleCardDelete = idCard => {
+  const handleCardDelete = _ => {
+    console.log(currentCardId);
     api
-      .removeCard(idCard)
+      .removeCard(currentCardId)
       .then(data => {
-        const newCardList = cards.filter(card => idCard !== card._id);
+        const newCardList = cards.filter(card => currentCardId !== card._id);
         setCards(newCardList);
+        setConfirmStatus(false);
       })
       .catch(err => console.log(err));
   };
 
-  //Функция для открытия увеличенной карточки по клику
-  const handleCardClick = ({ link, name }) => {
-    setSelectedCard({ status: true, src: link, name: name });
-  };
-
+  //Запрос к Api для изменения аватара
   const handleUpdateAvatar = ({ avatar }) => {
-    console.log(avatar);
     api
       .updateUserAvatar({ avatar })
       .then(UserData => {
         setCurrentUser(UserData);
-        closeAllPopups();
+        setAvatarStatus(false);
       })
       .catch(err => console.log(err));
   };
 
+  //Запрос к api для изменения профайла
   const handleUpdateUser = ({ name, about }) => {
     api
       .updateUserInformation({ name, about })
       .then(UserData => {
         setCurrentUser(UserData);
-        closeAllPopups();
+        setProfileStatus(false);
       })
       .catch(err => console.log(err));
+  };
+
+  //Запрос к api для добавления карточки
+  const handleAddPlaceSubmit = ({ name, link }) => {
+    // renderLoading(true, 'Создание...');
+    api
+      .addNewCard({ name, link })
+      .then(newCard => {
+        setCards([...cards, newCard]);
+        setPlaceStatus(false);
+      })
+      .catch(err => console.log(err));
+    // .finally(renderLoading(true, 'Создать'))
   };
 
   //Функции изменения состояния для открытия попапов
@@ -104,6 +134,11 @@ const App = _ => {
   };
   const handleAddPlaceClick = _ => {
     setPlaceStatus(true);
+  };
+  const handleConfirmClick = cardId => {
+    console.log(cardId);
+    setCurrentCardId(cardId);
+    setConfirmStatus(true);
   };
 
   return (
@@ -117,7 +152,7 @@ const App = _ => {
             onAddPlace={handleAddPlaceClick}
             onEditAvatar={handleEditAvatarClick}
             onCardsLike={handleCardLike}
-            onCardsDelete={handleCardDelete}
+            onCardsDelete={handleConfirmClick}
             cards={cards}
           />
           <Footer />
@@ -131,38 +166,11 @@ const App = _ => {
         />
 
         {/* Попап добавления новых карточек */}
-        <PopupWithForm
-          onClose={closeAllPopups}
+        <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
-          name="addCard"
-          title="Новое место"
-          textButton="Создать"
-        >
-          <label className="form__field">
-            <input
-              type="text"
-              className="form__input form__input_field_title"
-              id="title-input"
-              placeholder="Название"
-              name="name"
-              minLength="1"
-              maxLength="30"
-              required
-            />
-            <span className="form__input-error" id="title-input-error"></span>
-          </label>
-          <label className="form__field">
-            <input
-              className="form__input form__input_field_src"
-              id="src-input"
-              placeholder="Ссылка на картинку"
-              name="link"
-              type="URL"
-              required
-            />
-            <span className="form__input-error" id="src-input-error"></span>
-          </label>
-        </PopupWithForm>
+          onClose={closeAllPopups}
+          onCardAdd={handleAddPlaceSubmit}
+        />
 
         {/* Попап редактирования аватара */}
         <EditAvatarPopup
@@ -170,8 +178,16 @@ const App = _ => {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
         />
+
         {/* Попап подтверждения действий */}
-        <PopupWithForm name="confirm" title="Вы уверены?" textButton="Да" />
+        <PopupWithForm
+          name="confirm"
+          title="Вы уверены?"
+          textButton="Да"
+          onClose={closeAllPopups}
+          isOpen={isConfirmPopupOpen}
+          onSubmit={handleCardDelete}
+        />
 
         {/* Попап увеличенной картинки  */}
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />

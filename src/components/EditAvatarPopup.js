@@ -1,19 +1,13 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
-  //   const currentUser = useContext(CurrentUserContext);
-  const urlRef = useRef();
-  const [userAvatar, setAvatar] = useState({ avatar: '' });
+  const urlRef = useRef('');
 
-  const handleChangeName = evt => {
-    const targetAvatar = evt.target.value;
-    setAvatar(targetAvatar);
-  };
+  //Действие при субмите для отправки ссылки на автар к api
   const handleSubmit = evt => {
     evt.preventDefault();
-
-    onUpdateAvatar({ avatar: userAvatar });
+    onUpdateAvatar({ avatar: urlRef.current.value });
   };
 
   return (
@@ -32,8 +26,7 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
           placeholder="Ссылка на картинку"
           name="pictureSource"
           type="URL"
-          //   value={userAvatar || ''}
-          onChange={handleChangeName}
+          ref={urlRef}
           required
         />
         <span className="form__input-error" id="avatar-input-error"></span>
