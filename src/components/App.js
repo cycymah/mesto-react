@@ -41,14 +41,6 @@ const App = _ => {
       .catch(err => console.log(err));
   }, []);
 
-  // const renderLoading = (loading, message) => {
-  //   if (loading) {
-  //     textButton = message;
-  //   } else {
-  //     textButton = message;
-  //   }
-  // };
-
   //Изменения состояния для закрытия попапов
   const closeAllPopups = _ => {
     setAvatarStatus(false);
@@ -79,7 +71,6 @@ const App = _ => {
 
   //Удаление карточки запрос к api и обновление стейта
   const handleCardDelete = _ => {
-    console.log(currentCardId);
     api
       .removeCard(currentCardId)
       .then(data => {
@@ -89,6 +80,8 @@ const App = _ => {
       })
       .catch(err => console.log(err));
   };
+
+  //Спасибо за труд! Счастья, радости, печенек!:)
 
   //Запрос к Api для изменения аватара
   const handleUpdateAvatar = ({ avatar }) => {
@@ -114,7 +107,6 @@ const App = _ => {
 
   //Запрос к api для добавления карточки
   const handleAddPlaceSubmit = ({ name, link }) => {
-    // renderLoading(true, 'Создание...');
     api
       .addNewCard({ name, link })
       .then(newCard => {
@@ -122,7 +114,6 @@ const App = _ => {
         setPlaceStatus(false);
       })
       .catch(err => console.log(err));
-    // .finally(renderLoading(true, 'Создать'))
   };
 
   //Функции изменения состояния для открытия попапов
@@ -136,7 +127,6 @@ const App = _ => {
     setPlaceStatus(true);
   };
   const handleConfirmClick = cardId => {
-    console.log(cardId);
     setCurrentCardId(cardId);
     setConfirmStatus(true);
   };
