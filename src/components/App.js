@@ -74,10 +74,10 @@ const App = _ => {
     evt.preventDefault();
     api
       .removeCard(currentCardId)
-      .then(data => {
+      .then(_ => {
         const newCardList = cards.filter(card => currentCardId !== card._id);
         setCards(newCardList);
-        setConfirmStatus(false);
+        closeAllPopups();
       })
       .catch(err => console.log(err));
   };
@@ -90,7 +90,7 @@ const App = _ => {
       .updateUserAvatar({ avatar })
       .then(UserData => {
         setCurrentUser(UserData);
-        setAvatarStatus(false);
+        closeAllPopups();
       })
       .catch(err => console.log(err));
   };
@@ -101,7 +101,7 @@ const App = _ => {
       .updateUserInformation({ name, about })
       .then(UserData => {
         setCurrentUser(UserData);
-        setProfileStatus(false);
+        closeAllPopups();
       })
       .catch(err => console.log(err));
   };
@@ -111,8 +111,8 @@ const App = _ => {
     api
       .addNewCard({ name, link })
       .then(newCard => {
-        setCards([...cards, newCard]);
-        setPlaceStatus(false);
+        setCards([newCard, ...cards]);
+        closeAllPopups();
       })
       .catch(err => console.log(err));
   };
