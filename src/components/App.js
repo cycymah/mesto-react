@@ -70,7 +70,8 @@ const App = _ => {
   };
 
   //Удаление карточки запрос к api и обновление стейта
-  const handleCardDelete = _ => {
+  const handleCardDelete = evt => {
+    evt.preventDefault();
     api
       .removeCard(currentCardId)
       .then(data => {
