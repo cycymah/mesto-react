@@ -82,8 +82,6 @@ const App = _ => {
       .catch(err => console.log(err));
   };
 
-  //Спасибо за труд! Счастья, радости, печенек!:)
-
   //Запрос к Api для изменения аватара
   const handleUpdateAvatar = ({ avatar }) => {
     api

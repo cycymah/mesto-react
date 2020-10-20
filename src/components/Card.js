@@ -18,7 +18,7 @@ const Card = ({
   const isOwn = cardOwner === currentUser._id;
   const isLiked = likes.some(like => like._id === currentUser._id);
 
-  // Создаём переменную для класса карзины и лайка
+  // Создаём переменную для класса корзины и лайка
   const cardLikeButtonClassName = `elements__like ${
     isLiked ? 'elements__like_active' : ''
   }`;
